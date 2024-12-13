@@ -1,0 +1,14 @@
+{
+  "flutter": {
+    "platforms": {
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "sevenine-futebola",
+          "configurations": {
+            "web": "1:1011653606089:web:4826e75452b9ae0452eb18"
+          }
+        }
+      }
+    }
+  }
+}
