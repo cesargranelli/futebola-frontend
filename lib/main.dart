@@ -1,14 +1,13 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'firebase_options.dart';
-
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:futebola_frontend/player_page.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-import 'app_state.dart';
-import 'home_page.dart';
+import 'app_state_player.dart';
+import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,7 +17,7 @@ Future<void> main() async {
   );
 
   runApp(ChangeNotifierProvider(
-    create: (context) => ApplicationState(),
+    create: (context) => ApplicationStatePlayer(),
     builder: ((context, child) => const App()),
   ));
 }
@@ -27,7 +26,7 @@ final _router = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => const HomePage(),
+      builder: (context, state) => const PlayerPage(),
       routes: [
         GoRoute(
           path: 'sign-in',
@@ -107,8 +106,8 @@ class App extends StatelessWidget {
       title: 'Firebase Meetup',
       theme: ThemeData(
         buttonTheme: Theme.of(context).buttonTheme.copyWith(
-          highlightColor: Colors.deepPurple,
-        ),
+              highlightColor: Colors.deepPurple,
+            ),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         textTheme: GoogleFonts.robotoTextTheme(
           Theme.of(context).textTheme,
