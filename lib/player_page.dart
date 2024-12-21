@@ -1,29 +1,42 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import 'app_state_player.dart';
-
-class PlayerPage extends StatefulWidget {
+class PlayerPage extends StatelessWidget {
   const PlayerPage({super.key});
 
   @override
-  State<PlayerPage> createState() => _PlayerPage();
-}
-
-class _PlayerPage extends State<PlayerPage> {
-  @override
   Widget build(BuildContext context) {
+    double currentSliderValue = 0;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Player List'),
+        title: const Text("Player List"),
       ),
-      body: const CardPlayer(),
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance.collection("players").snapshots(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return const Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Text("Loading...."),
+            );
+          }
+          return ListView.builder(
+            itemCount: snapshot.data?.docs.length,
+            itemBuilder: (context, index) {
+              return CardPlayer(snapshot.data?.docs.elementAt(index));
+            },
+          );
+        },
+      ),
     );
   }
 }
 
 class CardPlayer extends StatefulWidget {
-  const CardPlayer({super.key});
+  final QueryDocumentSnapshot<Map<String, dynamic>>? elementAt;
+
+  const CardPlayer(this.elementAt, {super.key});
 
   @override
   State<CardPlayer> createState() => _CardPlayerState();
@@ -34,44 +47,41 @@ class _CardPlayerState extends State<CardPlayer> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ApplicationStatePlayer>(
-      builder: (context, appStatePlayer, _) => ListView.builder(
-        itemCount: appStatePlayer.players.length,
-        itemBuilder: (context, index) {
-          return Card(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: [
-                  ListTile(
-                    leading: Image.network(
-                      appStatePlayer.players.elementAt(index).team.emblem,
-                    ),
-                    title: Text(appStatePlayer.players.elementAt(index).name),
-                    subtitle: Text(appStatePlayer.players.elementAt(index).position),
-                    trailing: TextButton(
-                      child: const Text('ADD'),
-                      onPressed: () {
-                        /* ... */
-                      },
-                    ),
-                  ),
-                  Slider(
-                    value: _currentSliderValue,
-                    max: 100,
-                    divisions: 5,
-                    label: _currentSliderValue.round().toString(),
-                    onChanged: (double value) {
-                      setState(() {
-                        _currentSliderValue = value;
-                      });
-                    },
-                  ),
-                ],
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            ListTile(
+              leading: Image.network(
+                widget.elementAt?['team']['emblem'],
+              ),
+              title: Text(
+                widget.elementAt?['name'],
+              ),
+              subtitle: Text(
+                widget.elementAt?['position'],
+              ),
+              trailing: FloatingActionButton(
+                child: const Icon(Icons.add),
+                onPressed: () {
+                  /* ... */
+                },
               ),
             ),
-          );
-        },
+            Slider(
+              value: _currentSliderValue,
+              max: 100,
+              divisions: 5,
+              label: _currentSliderValue.round().toString(),
+              onChanged: (double value) {
+                setState(() {
+                  _currentSliderValue = value;
+                });
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
