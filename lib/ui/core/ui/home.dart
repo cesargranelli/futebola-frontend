@@ -1,12 +1,37 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  final User? data;
+
+  const HomeScreen(this.data, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: NavigationBar(
+        destinations: const <Widget>[
+          NavigationDestination(
+            selectedIcon: Icon(Icons.home),
+            icon: Icon(Icons.home_outlined),
+            label: 'Home',
+          ),
+          NavigationDestination(
+            icon: Badge(
+              child: Icon(Icons.group),
+            ),
+            label: 'Squad',
+          ),
+          NavigationDestination(
+            icon: Badge(
+              label: Text('2'),
+              child: Icon(Icons.settings),
+            ),
+            label: 'Settings',
+          ),
+        ],
+      ),
       appBar: AppBar(
         actions: [
           IconButton(
@@ -40,15 +65,20 @@ class HomeScreen extends StatelessWidget {
         automaticallyImplyLeading: false,
       ),
       body: Center(
-        child: Column(
-          children: [
-            Image.asset('dash.png'),
-            Text(
-              'Welcome!',
-              style: Theme.of(context).textTheme.displaySmall,
-            ),
-            const SignOutButton(),
-          ],
+        child:  SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Image.asset(
+                'dash.png',
+              ),
+              Text(
+                'Welcome!',
+                style: Theme.of(context).textTheme.displaySmall,
+              ),
+              Text(data!.email.toString()),
+              const SignOutButton(),
+            ],
+          ),
         ),
       ),
     );

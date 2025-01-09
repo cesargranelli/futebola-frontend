@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart' hide EmailAuthProvider;
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
+import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';
 import 'package:flutter/material.dart';
-import 'package:futebola_frontend/ui/views/home.dart';
+import 'package:futebola_frontend/ui/core/ui/home.dart';
 
 class AuthGate extends StatelessWidget {
   const AuthGate({super.key});
@@ -13,8 +14,21 @@ class AuthGate extends StatelessWidget {
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return SignInScreen(
+            showPasswordVisibilityToggle: true,
+            actions: [
+              AuthStateChangeAction<SignedIn>((context, state) {
+                if (!state.user!.emailVerified) {
+                  Navigator.pushNamed(context, '/verify-email');
+                } else {
+                  Navigator.pushReplacementNamed(context, '/profile');
+                }
+              }),
+            ],
             providers: [
               EmailAuthProvider(),
+              GoogleProvider(
+                clientId: "1011653606089-b3uoqivdb5ttmmaeegij60hj84g6g4c6.apps.googleusercontent.com",
+              ),
             ],
             headerBuilder: (context, constraints, shrinkOffset) {
               return Padding(
@@ -54,7 +68,7 @@ class AuthGate extends StatelessWidget {
           );
         }
 
-        return const HomeScreen();
+        return HomeScreen(snapshot.data);
       },
     );
   }
