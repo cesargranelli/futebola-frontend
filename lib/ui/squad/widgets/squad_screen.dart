@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:futebola_frontend/ui/core/ui/card_player.dart';
+import 'package:futebola_frontend/ui/core/ui/summary_player.dart';
 
 class SquadScreen extends StatelessWidget {
   const SquadScreen({super.key});
@@ -9,6 +9,7 @@ class SquadScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Squad Team'),
+        centerTitle: true,
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -18,11 +19,33 @@ class SquadScreen extends StatelessWidget {
               child: IntrinsicHeight(
                 child: Column(
                   children: [
-                    const Text("Titulares"),
-                    CardPlayer(),
-                    CardPlayer(),
-                    const Text("Reservas"),
-                    CardPlayer(),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: const Text(
+                        "Titulares",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blueGrey,
+                          letterSpacing: 1.5,
+                        ),
+                      ),
+                    ),
+                    SummaryPlayer(),
+                    SummaryPlayer(),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: const Text(
+                        "Reservas",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blueGrey,
+                          letterSpacing: 1.5,
+                        ),
+                      ),
+                    ),
+                    SummaryPlayer(),
                   ],
                 ),
               ),
