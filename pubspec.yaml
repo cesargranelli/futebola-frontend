@@ -1,11 +1,11 @@
 name: futebola_frontend
-description: "A new Flutter project."
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+description: "A new Flutter project futebola."
+publish_to: 'none'
 
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.5.4
+  sdk: ^3.6.0
 
 dependencies:
   flutter:
@@ -27,14 +27,14 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^4.0.0
-  build_runner: ^2.4.14
+  flutter_lints: ^5.0.0
   freezed: ^2.5.8
   json_serializable: ^6.9.2
 
 flutter:
   uses-material-design: true
   assets:
+    - assets/dash.png
     - assets/codelab.png
     - assets/flutterfire_300x.png
 

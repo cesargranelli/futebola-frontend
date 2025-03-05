@@ -1,16 +1,12 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-import 'data/repositories/auth_gate.dart';
-import 'firebase_options.dart';
+import 'ui/home/widgets/home_screen.dart';
+import 'ui/league/widgets/league_screen.dart';
+import 'ui/profile/widgets/profile_screen.dart';
+import 'ui/setting/widgets/setting_screen.dart';
+import 'ui/squad/widgets/squad_screen.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-
   runApp(const FutebolaApp());
 }
 
@@ -20,10 +16,19 @@ class FutebolaApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.brown,
       ),
-      home: const AuthGate(),
+      home: const SquadScreen(),
+      //routes: {
+      //  'home': (context) => const HomeScreen(),
+      //  'squad': (context) => const SquadScreen(),
+      //  'league': (context) => const LeagueScreen(),
+      //  'setting': (context) => const SettingScreen(),
+      //  'profile': (context) => const ProfileScreen(),
+      //},
+      //initialRoute: 'home',
     );
   }
 }

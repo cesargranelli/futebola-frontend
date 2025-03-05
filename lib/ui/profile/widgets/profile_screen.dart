@@ -1,43 +1,16 @@
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: const Icon(Icons.ac_unit),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.account_circle),
-          )
-        ],
-        title: const Text('Futebola'),
-      ),
       body: LayoutBuilder(builder: (context, constraints) {
         return SingleChildScrollView(
           child: ConstrainedBox(
             constraints: BoxConstraints(minHeight: constraints.maxHeight),
-            child: const Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Card(
-                  child: SizedBox(
-                    height: 100,
-                    child: Center(child: Text('Cadastra ou configurar o time')),
-                  ),
-                ),
-                Card(
-                  child: SizedBox(
-                    height: 100,
-                    child: Center(child: Text('Montar escalação do time')),
-                  ),
-                ),
-              ],
-            ),
+            child: const Text('Profile'),
           ),
         );
       }),

@@ -6,8 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart'
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:futebola_frontend/player.dart';
-import 'package:futebola_frontend/team.dart';
+import 'package:futebola_frontend/domain/models/player.dart';
+import 'package:futebola_frontend/domain/models/team.dart';
 
 import 'firebase_options.dart';
 
